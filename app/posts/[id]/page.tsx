@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import PostPageClient from "./PostPageClient";
-import { getPost } from "@/lib/markdown";
+import { getPost, getAllPosts } from "@/lib/markdown";
 
 interface PostPageProps {
   params: {
     id: string;
   };
+}
+
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    id: post.id,
+  }));
 }
 
 export async function generateMetadata({
